@@ -14,13 +14,11 @@ const queryClient = new QueryClient();
 const root = createRoot(document.getElementById("root")!);
 root.render(
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="light">
-      <NextUIProvider>
-        <Suspense fallback="Loading translations...">
-          <ToastProvider />
-          <RouterProvider router={router} />
-        </Suspense>
-      </NextUIProvider>
-    </ThemeProvider>
+    <NextUIProvider>
+      <Suspense fallback="Loading translations...">
+        <ToastProvider />
+        <RouterProvider router={router} />
+      </Suspense>
+    </NextUIProvider>
   </QueryClientProvider>
 );

@@ -1,9 +1,5 @@
 export const en = {
   translation: {
-    common: {
-      toggleTheme: "Toggle theme",
-      loading: "Loading...",
-    },
     auth: {
       welcomeBack: "Welcome back",
       loginToContinue: "Login to continue",

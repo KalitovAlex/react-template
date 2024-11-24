@@ -1,9 +1,5 @@
 export const ru = {
   translation: {
-    common: {
-      toggleTheme: "Переключить тему",
-      loading: "Загрузка...",
-    },
     auth: {
       welcomeBack: "С возвращением",
       loginToContinue: "Войдите, чтобы продолжить",

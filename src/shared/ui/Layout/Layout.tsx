@@ -1,7 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { Button, ButtonGroup } from "@nextui-org/react";
 import { useTranslation } from "react-i18next";
-import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   const { i18n } = useTranslation();
@@ -46,8 +45,6 @@ export const Layout = ({ children }: { children: ReactNode }) => {
             RU
           </Button>
         </ButtonGroup>
-        <div className="w-px bg-default-200 mx-1" />
-        <ThemeSwitcher />
       </footer>
     </div>
   );

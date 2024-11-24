@@ -16,7 +16,9 @@ export const useSignupSchema = () => {
     person: z.object({
       firstName: z.string().min(1, t("auth.validation.firstNameRequired")),
       lastName: z.string().min(1, t("auth.validation.lastNameRequired")),
-      patronymicName: z.string().min(1, t("auth.validation.patronymicRequired")),
+      patronymicName: z
+        .string()
+        .min(1, t("auth.validation.patronymicRequired")),
     }),
   });
 };
@@ -31,4 +33,4 @@ export type SignupFormFields = {
     lastName: string;
     patronymicName: string;
   };
-}; 
+};

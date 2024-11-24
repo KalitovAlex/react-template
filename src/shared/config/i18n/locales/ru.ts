@@ -10,6 +10,7 @@ export const ru = {
       email: "Email",
       password: "Пароль",
       signIn: "Войти",
+      signUp: "Зарегистрироваться",
       enterEmail: "Введите ваш email",
       enterPassword: "Введите ваш пароль",
       successLogin: "Вход выполнен успешно!",
@@ -25,7 +26,6 @@ export const ru = {
       enterFirstName: "Введите имя",
       enterLastName: "Введите фамилию",
       enterPatronymic: "Введите отчество",
-      signUp: "Зарегистрироваться",
       signupFailed: "Ошибка при регистрации",
       validation: {
         emailRequired: "Email обязателен",
@@ -38,6 +38,9 @@ export const ru = {
       },
       noAccount: "Нет аккаунта?",
       haveAccount: "Уже есть аккаунт?",
+      submit: "Отправить",
+      register: "Регистрация",
+      login: "Вход",
     },
   },
 };

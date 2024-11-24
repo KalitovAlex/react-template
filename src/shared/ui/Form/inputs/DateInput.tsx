@@ -41,7 +41,20 @@ export const DateInput = ({
         autoComplete={autoComplete}
         min={min}
         max={max}
-        className={`w-full ${className}`}
+        classNames={{
+          base: "w-full",
+          mainWrapper: "w-full",
+          input: "w-full",
+          inputWrapper: [
+            "border",
+            "border-default-200",
+            "data-[hover=true]:border-primary",
+            "group-data-[focus=true]:border-primary",
+            "!bg-transparent",
+            "hover:!bg-transparent",
+            className
+          ],
+        }}
       />
     </div>
   );

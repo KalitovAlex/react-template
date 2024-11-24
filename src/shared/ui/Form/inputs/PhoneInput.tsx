@@ -42,7 +42,20 @@ export const PhoneInput = ({
             <span className="text-default-400 text-small">+7</span>
           </div>
         }
-        className={`w-full ${className}`}
+        classNames={{
+          base: "w-full",
+          mainWrapper: "w-full",
+          input: "w-full",
+          inputWrapper: [
+            "border",
+            "border-default-200",
+            "data-[hover=true]:border-primary",
+            "group-data-[focus=true]:border-primary",
+            "!bg-transparent",
+            "hover:!bg-transparent",
+            className,
+          ],
+        }}
       />
     </div>
   );

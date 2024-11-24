@@ -1,15 +1,30 @@
-import { Button, Input, Card, CardBody, CardHeader } from "@nextui-org/react";
-import { useState } from "react";
+import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useAuth } from "../model/useAuth";
+import { Form } from "../../../shared/ui/Form/Form";
+import { LoginCredentials } from "../model/types";
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const { login, isLoading } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    login({ email, password });
+  const fields = [
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+      placeholder: "Enter your email",
+      required: true,
+    },
+    {
+      name: "password",
+      label: "Password",
+      type: "password",
+      placeholder: "Enter your password",
+      required: true,
+    },
+  ];
+
+  const handleSubmit = (values: Record<string, string>) => {
+    login(values as unknown as LoginCredentials);
   };
 
   return (
@@ -21,23 +36,7 @@ export const LoginForm = () => {
         </div>
       </CardHeader>
       <CardBody>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <Input
-            isRequired
-            label="Email"
-            placeholder="Enter your email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            isRequired
-            label="Password"
-            placeholder="Enter your password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <Form fields={fields} onSubmit={handleSubmit}>
           <Button
             type="submit"
             color="primary"
@@ -46,7 +45,7 @@ export const LoginForm = () => {
           >
             Sign In
           </Button>
-        </form>
+        </Form>
       </CardBody>
     </Card>
   );

@@ -1,7 +1,6 @@
 export const ru = {
   translation: {
     common: {
-      toggleTheme: "Переключить тему",
       loading: "Загрузка...",
     },
     auth: {

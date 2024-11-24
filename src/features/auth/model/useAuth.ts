@@ -1,21 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { authApi } from "../api/auth.api";
 import { tokenModel } from "./token.model";
 import { useAuthStore } from "./store/auth.store";
 import { Tokens } from "../../../shared/types/auth";
 import { AUTH, DASHBOARD } from "../../../shared/constants/routes";
 import { toast } from "sonner";
+import { t } from "../../../shared/config/localization";
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
   const { setUser, setAccessToken, reset } = useAuthStore();
 
   const handleAuthSuccess = (data: Tokens) => {
     if (!data.accessToken || !data.refreshToken || !data.user) {
-      toast.error(t("auth.invalidAuth"));
+      toast.error(t.auth.invalidAuth);
       return;
     }
 
@@ -23,10 +22,10 @@ export const useAuth = () => {
       setAccessToken(data.accessToken);
       setUser(data.user);
       tokenModel.setRefreshToken(data.refreshToken);
-      toast.success(t("auth.successLogin"));
+      toast.success(t.auth.successLogin);
       navigate(DASHBOARD);
     } catch (error) {
-      toast.error(t("auth.loginFailed", { error }));
+      toast.error(t.auth.loginFailed);
       reset();
       tokenModel.removeRefreshToken();
     }
@@ -36,7 +35,7 @@ export const useAuth = () => {
     mutationFn: authApi.login,
     onSuccess: handleAuthSuccess,
     onError: (error: Error) => {
-      toast.error(error.message || t("auth.loginFailed"));
+      toast.error(error.message || t.auth.loginFailed);
       reset();
       tokenModel.removeRefreshToken();
     },
@@ -46,7 +45,7 @@ export const useAuth = () => {
     mutationFn: authApi.signup,
     onSuccess: handleAuthSuccess,
     onError: (error: Error) => {
-      toast.error(error.message || t("auth.signupFailed"));
+      toast.error(error.message || t.auth.signupFailed);
       reset();
       tokenModel.removeRefreshToken();
     },
@@ -56,10 +55,10 @@ export const useAuth = () => {
     try {
       reset();
       tokenModel.removeRefreshToken();
-      toast.success(t("auth.successLogout"));
+      toast.success(t.auth.successLogout);
       navigate(AUTH);
     } catch (error) {
-      toast.error(t("auth.loginFailed", { error }));
+      toast.error(t.auth.loginFailed);
     }
   };
 

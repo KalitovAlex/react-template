@@ -6,8 +6,6 @@ import { router } from "./providers/router";
 import { RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { ToastProvider } from "./providers/toast/ToastProvider";
-import "../shared/config/i18n";
-import { Suspense } from "react";
 
 const queryClient = new QueryClient();
 
@@ -16,10 +14,8 @@ root.render(
   <QueryClientProvider client={queryClient}>
     <ThemeProvider attribute="class" defaultTheme="light">
       <NextUIProvider>
-        <Suspense fallback="Loading translations...">
-          <ToastProvider />
-          <RouterProvider router={router} />
-        </Suspense>
+        <ToastProvider />
+        <RouterProvider router={router} />
       </NextUIProvider>
     </ThemeProvider>
   </QueryClientProvider>

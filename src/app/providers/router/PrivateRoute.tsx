@@ -5,6 +5,7 @@ import { tokenModel } from "../../../features/auth/model/token.model";
 import { authApi } from "../../../features/auth/api/auth.api";
 import { toast } from "sonner";
 import { userApi } from "../../../entities/user";
+import { t } from "../../../shared/config/localization";
 
 export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const [isChecking, setIsChecking] = useState(true);
@@ -31,7 +32,7 @@ export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 
         setIsAuthenticated(true);
       } catch (error) {
-        toast.error(`Session expired. Please login again: ${error}`);
+        toast.error(t.auth.sessionExpired);
         reset();
         tokenModel.removeRefreshToken();
       } finally {
@@ -43,7 +44,7 @@ export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   }, [reset]);
 
   if (isChecking) {
-    return <div>Loading...</div>;
+    return <div>{t.common.loading}</div>;
   }
 
   if (!isAuthenticated) {

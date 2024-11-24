@@ -1,4 +1,4 @@
-import i18next from "i18next";
+import { t } from "../../../shared/config/localization";
 import { REFRESH_TOKEN_KEY } from "../../../shared/constants/auth";
 
 export const tokenModel = {
@@ -6,7 +6,7 @@ export const tokenModel = {
     try {
       return localStorage.getItem(REFRESH_TOKEN_KEY);
     } catch (error) {
-      console.error(i18next.t("auth.loginFailed"), error);
+      console.error(t.auth.loginFailed, error);
       return null;
     }
   },
@@ -14,11 +14,11 @@ export const tokenModel = {
   setRefreshToken(token: string): void {
     try {
       if (!token) {
-        throw new Error(i18next.t("auth.invalidAuth"));
+        throw new Error(t.auth.invalidAuth);
       }
       localStorage.setItem(REFRESH_TOKEN_KEY, token);
     } catch (error) {
-      console.error(i18next.t("auth.loginFailed"), error);
+      console.error(t.auth.loginFailed, error);
     }
   },
 
@@ -26,7 +26,7 @@ export const tokenModel = {
     try {
       localStorage.removeItem(REFRESH_TOKEN_KEY);
     } catch (error) {
-      console.error(i18next.t("auth.loginFailed"), error);
+      console.error(t.auth.loginFailed, error);
     }
   },
 };

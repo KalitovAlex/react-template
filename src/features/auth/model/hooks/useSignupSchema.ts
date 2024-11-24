@@ -1,24 +1,20 @@
-import { useTranslation } from "react-i18next";
+import { t } from "../../../../shared/config/localization";
 import { z } from "zod";
 
 export const useSignupSchema = () => {
-  const { t } = useTranslation();
-
   return z.object({
     email: z
       .string()
-      .min(1, t("auth.validation.emailRequired"))
-      .email(t("auth.validation.emailInvalid")),
+      .min(1, t.auth.validation.emailRequired)
+      .email(t.auth.validation.emailInvalid),
     password: z
       .string()
-      .min(1, t("auth.validation.passwordRequired"))
-      .min(6, t("auth.validation.passwordMin", { min: 6 })),
+      .min(1, t.auth.validation.passwordRequired)
+      .min(6, t.auth.validation.passwordMin.replace("{{min}}", "6")),
     person: z.object({
-      firstName: z.string().min(1, t("auth.validation.firstNameRequired")),
-      lastName: z.string().min(1, t("auth.validation.lastNameRequired")),
-      patronymicName: z
-        .string()
-        .min(1, t("auth.validation.patronymicRequired")),
+      firstName: z.string().min(1, t.auth.validation.firstNameRequired),
+      lastName: z.string().min(1, t.auth.validation.lastNameRequired),
+      patronymicName: z.string().min(1, t.auth.validation.patronymicRequired),
     }),
   });
 };

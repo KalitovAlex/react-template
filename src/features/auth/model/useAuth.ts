@@ -42,6 +42,16 @@ export const useAuth = () => {
     },
   });
 
+  const signup = useMutation({
+    mutationFn: authApi.signup,
+    onSuccess: handleAuthSuccess,
+    onError: (error: Error) => {
+      toast.error(error.message || t("auth.signupFailed"));
+      reset();
+      tokenModel.removeRefreshToken();
+    },
+  });
+
   const logout = () => {
     try {
       reset();
@@ -55,7 +65,9 @@ export const useAuth = () => {
 
   return {
     login: login.mutate,
+    signup: signup.mutate,
     logout,
     isLoading: login.isPending,
+    isSigningUp: signup.isPending,
   };
 };

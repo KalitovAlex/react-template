@@ -5,6 +5,7 @@ import { apiInstance } from "../../../shared/api/axios";
 import { ENDPOINTS } from "../../../shared/constants";
 import { User, userApi } from "../../../entities/user";
 import { LoginFormValues } from "../model/hooks/useLoginSchema";
+import { SignupFormValues } from "../model/hooks/useSignupSchema";
 
 let refreshPromise: Promise<string | null> | null = null;
 
@@ -31,6 +32,14 @@ export const authApi = {
   async getSelf() {
     const { data } = await apiInstance.get<User>(ENDPOINTS.GET_SELF);
     return data;
+  },
+
+  async signup(data: SignupFormValues) {
+    const { data: response } = await apiInstance.post<Tokens>(
+      ENDPOINTS.SIGNUP,
+      data
+    );
+    return response;
   },
 };
 

@@ -5,8 +5,3 @@ export interface Tokens {
   refreshToken: string;
   user: User;
 }
-
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}

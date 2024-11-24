@@ -23,6 +23,8 @@ export const en = {
         passwordRequired: "Password is required",
         passwordMin: "Password must be at least {{min}} characters",
       },
+      noAccount: "Don't have an account?",
+      haveAccount: "Already have an account?",
     },
   },
 };

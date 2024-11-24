@@ -1,4 +1,4 @@
-import { User } from "../../../shared/types/auth";
+import { User } from "../../../entities/user/model/types";
 
 export interface AuthState {
   user: User | null;

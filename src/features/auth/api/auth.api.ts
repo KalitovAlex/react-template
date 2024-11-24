@@ -1,16 +1,17 @@
 import { tokenModel } from "../model/token.model";
 import { useAuthStore } from "../model/store/auth.store";
-import { LoginFormValues } from "../model/types";
 import { Tokens } from "../../../shared/types/auth";
 import { apiInstance } from "../../../shared/api/axios";
-import { AUTH_ENDPOINTS } from "../../../shared/constants";
+import { ENDPOINTS } from "../../../shared/constants";
+import { User, userApi } from "../../../entities/user";
+import { LoginFormValues } from "../model/hooks/useLoginSchema";
 
 let refreshPromise: Promise<string | null> | null = null;
 
 export const authApi = {
   async login(credentials: LoginFormValues) {
     const { data } = await apiInstance.post<Tokens>(
-      AUTH_ENDPOINTS.LOGIN,
+      ENDPOINTS.LOGIN,
       credentials
     );
     return data;
@@ -21,14 +22,18 @@ export const authApi = {
       throw new Error("No refresh token provided");
     }
 
-    const { data } = await apiInstance.post<Tokens>(AUTH_ENDPOINTS.REFRESH, {
+    const { data } = await apiInstance.post<Tokens>(ENDPOINTS.REFRESH, {
       refreshToken: refreshToken,
     });
     return data;
   },
+
+  async getSelf() {
+    const { data } = await apiInstance.get<User>(ENDPOINTS.GET_SELF);
+    return data;
+  },
 };
 
-// Интерцептор для запросов
 apiInstance.interceptors.request.use(
   (config) => {
     const accessToken = useAuthStore.getState().accessToken;
@@ -90,8 +95,14 @@ async function refreshAccessToken(): Promise<string | null> {
     }
 
     useAuthStore.getState().setAccessToken(tokens.accessToken);
-    useAuthStore.getState().setUser(tokens.user);
     tokenModel.setRefreshToken(tokens.refreshToken);
+
+    try {
+      const userData = await userApi.getSelf();
+      useAuthStore.getState().setUser(userData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
 
     return tokens.accessToken;
   } catch (error) {

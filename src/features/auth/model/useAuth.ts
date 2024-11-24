@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { authApi } from "../api/auth.api";
 import { tokenModel } from "./token.model";
 import { useAuthStore } from "./store/auth.store";
@@ -9,11 +10,12 @@ import { toast } from "sonner";
 
 export const useAuth = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { setUser, setAccessToken, reset } = useAuthStore();
 
   const handleAuthSuccess = (data: Tokens) => {
     if (!data.accessToken || !data.refreshToken || !data.user) {
-      toast.error("Invalid authentication data received");
+      toast.error(t("auth.invalidAuth"));
       return;
     }
 
@@ -21,10 +23,10 @@ export const useAuth = () => {
       setAccessToken(data.accessToken);
       setUser(data.user);
       tokenModel.setRefreshToken(data.refreshToken);
-      toast.success("Successfully logged in!");
+      toast.success(t("auth.successLogin"));
       navigate(DASHBOARD);
     } catch (error) {
-      toast.error(`Error handling authentication ${error}`);
+      toast.error(t("auth.loginFailed", { error }));
       reset();
       tokenModel.removeRefreshToken();
     }
@@ -34,7 +36,7 @@ export const useAuth = () => {
     mutationFn: authApi.login,
     onSuccess: handleAuthSuccess,
     onError: (error: Error) => {
-      toast.error(error.message || "Login failed");
+      toast.error(error.message || t("auth.loginFailed"));
       reset();
       tokenModel.removeRefreshToken();
     },
@@ -44,10 +46,10 @@ export const useAuth = () => {
     try {
       reset();
       tokenModel.removeRefreshToken();
-      toast.success("Successfully logged out!");
+      toast.success(t("auth.successLogout"));
       navigate(AUTH);
     } catch (error) {
-      toast.error(`Error during logout: ${error}`);
+      toast.error(t("auth.loginFailed", { error }));
     }
   };
 

@@ -17,6 +17,12 @@ export const en = {
       sessionExpired: "Session expired. Please login again",
       invalidAuth: "Invalid authentication data received",
       loginFailed: "Login failed",
+      validation: {
+        emailRequired: "Email is required",
+        emailInvalid: "Invalid email format",
+        passwordRequired: "Password is required",
+        passwordMin: "Password must be at least {{min}} characters",
+      },
     },
   },
 };

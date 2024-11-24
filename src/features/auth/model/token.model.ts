@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import { REFRESH_TOKEN_KEY } from "../../../shared/constants/auth";
 
 export const tokenModel = {
@@ -5,7 +6,7 @@ export const tokenModel = {
     try {
       return localStorage.getItem(REFRESH_TOKEN_KEY);
     } catch (error) {
-      console.error("Error getting refresh token:", error);
+      console.error(i18next.t("auth.loginFailed"), error);
       return null;
     }
   },
@@ -13,11 +14,11 @@ export const tokenModel = {
   setRefreshToken(token: string): void {
     try {
       if (!token) {
-        throw new Error("Attempt to save empty refresh token");
+        throw new Error(i18next.t("auth.invalidAuth"));
       }
       localStorage.setItem(REFRESH_TOKEN_KEY, token);
     } catch (error) {
-      console.error("Error setting refresh token:", error);
+      console.error(i18next.t("auth.loginFailed"), error);
     }
   },
 
@@ -25,7 +26,7 @@ export const tokenModel = {
     try {
       localStorage.removeItem(REFRESH_TOKEN_KEY);
     } catch (error) {
-      console.error("Error removing refresh token:", error);
+      console.error(i18next.t("auth.loginFailed"), error);
     }
   },
 };

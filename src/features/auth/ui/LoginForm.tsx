@@ -2,12 +2,13 @@ import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useAuth } from "../model/useAuth";
 import { Form } from "../../../shared/ui/Form/Form";
 import { FormField } from "../../../shared/ui/Form/types";
-import { LoginFormValues, loginSchema } from "../model/types";
 import { useTranslation } from "react-i18next";
+import { LoginFormValues, useLoginSchema } from "../model/hooks/useLoginSchema";
 
 export const LoginForm = () => {
   const { login, isLoading } = useAuth();
   const { t } = useTranslation();
+  const loginSchema = useLoginSchema();
 
   const fields: FormField<LoginFormValues>[] = [
     {

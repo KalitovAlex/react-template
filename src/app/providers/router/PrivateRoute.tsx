@@ -4,6 +4,7 @@ import { useAuthStore } from "../../../features/auth/model/store/auth.store";
 import { tokenModel } from "../../../features/auth/model/token.model";
 import { authApi } from "../../../features/auth/api/auth.api";
 import { toast } from "sonner";
+import { userApi } from "../../../entities/user";
 
 export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const [isChecking, setIsChecking] = useState(true);
@@ -23,8 +24,11 @@ export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
       try {
         const data = await authApi.refresh(refreshToken);
         useAuthStore.getState().setAccessToken(data.accessToken);
-        useAuthStore.getState().setUser(data.user);
         tokenModel.setRefreshToken(data.refreshToken);
+
+        const userData = await userApi.getSelf();
+        useAuthStore.getState().setUser(userData);
+
         setIsAuthenticated(true);
       } catch (error) {
         toast.error(`Session expired. Please login again: ${error}`);

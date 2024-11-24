@@ -3,11 +3,7 @@ import { Button, ButtonGroup } from "@nextui-org/react";
 import { useTranslation } from "react-i18next";
 import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children }: { children: ReactNode }) => {
   const { i18n } = useTranslation();
 
   const changeLanguage = (lng: string) => {

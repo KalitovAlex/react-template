@@ -3,10 +3,9 @@ import { createBrowserRouter } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { LoginPage } from "../../../pages/auth/ui/LoginPage";
-import { HOME } from "../../../shared/constants/routes";
-import { AUTH } from "../../../shared/constants/routes";
-import { DASHBOARD } from "../../../shared/constants/routes";
+import { HOME, AUTH, DASHBOARD } from "../../../shared/constants/routes";
 import { DashboardPage } from "../../../pages/dashboard/ui/DashboardPage";
+import { Layout } from "../../../shared/ui/Layout/Layout";
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +16,9 @@ export const router = createBrowserRouter([
     path: AUTH,
     element: (
       <PublicRoute>
-        <LoginPage />
+        <Layout>
+          <LoginPage />
+        </Layout>
       </PublicRoute>
     ),
   },
@@ -25,7 +26,9 @@ export const router = createBrowserRouter([
     path: DASHBOARD,
     element: (
       <PrivateRoute>
-        <DashboardPage />
+        <Layout>
+          <DashboardPage />
+        </Layout>
       </PrivateRoute>
     ),
   },

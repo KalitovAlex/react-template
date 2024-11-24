@@ -5,6 +5,7 @@ import { tokenModel } from "./token.model";
 import { useAuthStore } from "./store/auth.store";
 import { Tokens } from "../../../shared/types/auth";
 import { AUTH, DASHBOARD } from "../../../shared/constants/routes";
+import { toast } from "sonner";
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const useAuth = () => {
 
   const handleAuthSuccess = (data: Tokens) => {
     if (!data.accessToken || !data.refreshToken || !data.user) {
-      console.error("Invalid auth data received");
+      toast.error("Invalid authentication data received");
       return;
     }
 
@@ -20,9 +21,10 @@ export const useAuth = () => {
       setAccessToken(data.accessToken);
       setUser(data.user);
       tokenModel.setRefreshToken(data.refreshToken);
+      toast.success("Successfully logged in!");
       navigate(DASHBOARD);
     } catch (error) {
-      console.error("Error handling auth success:", error);
+      toast.error(`Error handling authentication ${error}`);
       reset();
       tokenModel.removeRefreshToken();
     }
@@ -31,8 +33,8 @@ export const useAuth = () => {
   const login = useMutation({
     mutationFn: authApi.login,
     onSuccess: handleAuthSuccess,
-    onError: (error) => {
-      console.error("Login error:", error);
+    onError: (error: Error) => {
+      toast.error(error.message || "Login failed");
       reset();
       tokenModel.removeRefreshToken();
     },
@@ -42,9 +44,10 @@ export const useAuth = () => {
     try {
       reset();
       tokenModel.removeRefreshToken();
+      toast.success("Successfully logged out!");
       navigate(AUTH);
     } catch (error) {
-      console.error("Logout error:", error);
+      toast.error(`Error during logout: ${error}`);
     }
   };
 

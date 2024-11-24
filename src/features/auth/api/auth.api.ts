@@ -1,6 +1,6 @@
 import { tokenModel } from "../model/token.model";
 import { useAuthStore } from "../model/store/auth.store";
-import { LoginCredentials } from "../model/types";
+import { LoginFormValues } from "../model/types";
 import { Tokens } from "../../../shared/types/auth";
 import { apiInstance } from "../../../shared/api/axios";
 import { AUTH_ENDPOINTS } from "../../../shared/constants";
@@ -8,7 +8,7 @@ import { AUTH_ENDPOINTS } from "../../../shared/constants";
 let refreshPromise: Promise<string | null> | null = null;
 
 export const authApi = {
-  async login(credentials: LoginCredentials) {
+  async login(credentials: LoginFormValues) {
     const { data } = await apiInstance.post<Tokens>(
       AUTH_ENDPOINTS.LOGIN,
       credentials

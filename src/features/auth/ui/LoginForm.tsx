@@ -1,49 +1,58 @@
 import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useAuth } from "../model/useAuth";
 import { Form } from "../../../shared/ui/Form/Form";
-import { LoginCredentials } from "../model/types";
+import { FormField } from "../../../shared/ui/Form/types";
+import { LoginFormValues, loginSchema } from "../model/types";
+import { useTranslation } from "react-i18next";
 
 export const LoginForm = () => {
   const { login, isLoading } = useAuth();
+  const { t } = useTranslation();
 
-  const fields = [
+  const fields: FormField<LoginFormValues>[] = [
     {
       name: "email",
-      label: "Email",
+      label: t("auth.email"),
       type: "email",
-      placeholder: "Enter your email",
+      placeholder: t("auth.enterEmail"),
       required: true,
     },
     {
       name: "password",
-      label: "Password",
+      label: t("auth.password"),
       type: "password",
-      placeholder: "Enter your password",
+      placeholder: t("auth.enterPassword"),
       required: true,
     },
   ];
 
-  const handleSubmit = (values: Record<string, string>) => {
-    login(values as unknown as LoginCredentials);
+  const handleSubmit = (values: LoginFormValues) => {
+    login(values);
   };
 
   return (
     <Card className="w-full max-w-md">
-      <CardHeader className="flex gap-3">
+      <CardHeader className="flex justify-between items-center px-6 py-4">
         <div className="flex flex-col">
-          <p className="text-md">Welcome back</p>
-          <p className="text-small text-default-500">Login to continue</p>
+          <p className="text-md">{t("auth.welcomeBack")}</p>
+          <p className="text-small text-default-500">
+            {t("auth.loginToContinue")}
+          </p>
         </div>
       </CardHeader>
       <CardBody>
-        <Form fields={fields} onSubmit={handleSubmit}>
+        <Form<typeof loginSchema>
+          fields={fields}
+          onSubmit={handleSubmit}
+          schema={loginSchema}
+        >
           <Button
             type="submit"
             color="primary"
             isLoading={isLoading}
             className="w-full"
           >
-            Sign In
+            {t("auth.signIn")}
           </Button>
         </Form>
       </CardBody>

@@ -3,6 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../../features/auth/model/store/auth.store";
 import { tokenModel } from "../../../features/auth/model/token.model";
 import { authApi } from "../../../features/auth/api/auth.api";
+import { toast } from "sonner";
 
 export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const [isChecking, setIsChecking] = useState(true);
@@ -26,7 +27,7 @@ export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
         tokenModel.setRefreshToken(data.refreshToken);
         setIsAuthenticated(true);
       } catch (error) {
-        console.log(error);
+        toast.error(`Session expired. Please login again: ${error}`);
         reset();
         tokenModel.removeRefreshToken();
       } finally {

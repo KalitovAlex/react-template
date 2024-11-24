@@ -56,7 +56,7 @@ export const PasswordInput = ({
             "group-data-[focus=true]:border-primary",
             "!bg-transparent",
             "hover:!bg-transparent",
-            className
+            className,
           ],
         }}
       />

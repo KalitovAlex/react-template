@@ -3,12 +3,12 @@ import { PasswordInput } from "./PasswordInput";
 import { PhoneInput } from "./PhoneInput";
 import { DateInput } from "./DateInput";
 import { AutocompleteInput } from "./AutocompleteInput";
-import { 
-  TextInputProps, 
-  DateInputProps, 
+import {
+  TextInputProps,
+  DateInputProps,
   AutocompleteInputProps,
   PasswordInputProps,
-  PhoneInputProps
+  PhoneInputProps,
 } from "../types";
 
 type InputComponents = {

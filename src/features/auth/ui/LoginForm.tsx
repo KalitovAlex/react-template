@@ -1,4 +1,4 @@
-import { Button, Input, Card, CardBody } from "@nextui-org/react";
+import { Button, Input, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useState } from "react";
 import { useAuth } from "../model/useAuth";
 
@@ -13,17 +13,27 @@ export const LoginForm = () => {
   };
 
   return (
-    <Card className="max-w-md mx-auto mt-10">
+    <Card className="w-full max-w-md">
+      <CardHeader className="flex gap-3">
+        <div className="flex flex-col">
+          <p className="text-md">Welcome back</p>
+          <p className="text-small text-default-500">Login to continue</p>
+        </div>
+      </CardHeader>
       <CardBody>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
+            isRequired
             label="Email"
+            placeholder="Enter your email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
+            isRequired
             label="Password"
+            placeholder="Enter your password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -34,7 +44,7 @@ export const LoginForm = () => {
             isLoading={isLoading}
             className="w-full"
           >
-            Login
+            Sign In
           </Button>
         </form>
       </CardBody>

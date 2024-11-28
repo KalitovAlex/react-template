@@ -25,6 +25,7 @@ export const useAuth = () => {
       toast.success(t.auth.successLogin);
       navigate(DASHBOARD);
     } catch (error) {
+      console.log(error);
       toast.error(t.auth.loginFailed);
       reset();
       tokenModel.removeRefreshToken();
@@ -58,6 +59,7 @@ export const useAuth = () => {
       toast.success(t.auth.successLogout);
       navigate(AUTH);
     } catch (error) {
+      console.log(error);
       toast.error(t.auth.loginFailed);
     }
   };
